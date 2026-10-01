@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, TextInput, Pressable, Alert } from "react-native";
 import { StyleSheet } from "react-native";
 import Navbar from "../components/Navbar";
+import {loginStyles as styles} from "../styles/loginStyles.js";
 
 export default function LoginScreen() {
   // 1. États locaux pour les champs du formulaire
@@ -57,34 +58,3 @@ export default function LoginScreen() {
   );
 }
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    backgroundColor: "#f5f5f5",
-  },
-
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 32,
-    color: "#333",
-  },
-  button: {
-    backgroundColor: "#333",
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
