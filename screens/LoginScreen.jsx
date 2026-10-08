@@ -21,7 +21,7 @@ export default function LoginScreen() {
   const handleSubmit = () => {
     // Appel de la fonction loginUser avec login et password
     if (loginUser(login, password)) {
-      navigation.navigate("Dashboard"); // Redirige vers Dashboard si succès
+      navigation.navigate("DashboardScreen"); // Redirige vers Dashboard si succès
     } else {
       Alert.alert("Identifiants incorrects"); // Affiche une erreur si échec
     }
