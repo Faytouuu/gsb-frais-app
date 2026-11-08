@@ -18,12 +18,16 @@ export default function LoginScreen() {
   const navigation = useNavigation();
   
   // 4. Déclaration de la fonction handleSubmit
-  const handleSubmit = () => {
-    // Appel de la fonction loginUser avec login et password
-    if (loginUser(login, password)) {
-      navigation.navigate("DashboardScreen"); // Redirige vers Dashboard si succès
-    } else {
-      Alert.alert("Identifiants incorrects"); // Affiche une erreur si échec
+  const handleSubmit = async () => {
+    try {
+      const data = await loginUser(login, password);
+      if (data.token) {
+        navigation.navigate("DashboardScreen");
+      } else {
+        Alert.alert("Identifiants incorrects");
+      }
+    } catch (error) {
+      Alert.alert("Erreur", "La connexion a échoué. Veuillez réessayer.");
     }
   };
 
@@ -57,4 +61,3 @@ export default function LoginScreen() {
     </View>
   );
 }
-
