@@ -1,5 +1,5 @@
-export const API_URL = "http://gsbfrais.julliand.ispconfig.lmdsio.com/api/";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "../config";
 
 export async function signIn(login, pwd) {
     const response = await fetch(`${API_URL}visiteur/auth`, {

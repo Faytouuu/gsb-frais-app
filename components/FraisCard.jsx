@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function FraisCard({ frais }) {
+function FraisCard({ frais, onEdit, onDelete }) {
+  const navigation = useNavigation();
   const montantValide =
     frais.montantvalide !== null && frais.montantvalide !== undefined
       ? `${Number(frais.montantvalide).toFixed(2).replace(".", ",")} €`
@@ -14,6 +16,18 @@ export default function FraisCard({ frais }) {
       <Text style={styles.meta}>Nombre de justificatifs : {frais.nbjustificatifs}</Text>
       <Text style={styles.meta}>Montant validé : {montantValide}</Text>
       <Text style={styles.meta}>Montant saisi : - €</Text>
+      <Pressable
+        style={styles.editButton}
+        onPress={() => onEdit(frais.id_frais)}
+      >
+        <Text>Modifier</Text>
+      </Pressable>
+      <Pressable
+        style={styles.deleteButton}
+        onPress={() => onDelete(frais.id_frais)}
+      >
+        <Text>Supprimer</Text>
+      </Pressable>
     </View>
   );
 }
@@ -42,4 +56,22 @@ const styles = StyleSheet.create({
     marginTop: 4,
     lineHeight: 22,
   },
+  editButton: {
+    alignSelf: "flex-start",
+    marginTop: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: "#333333",
+  },
+  deleteButton: {
+    alignSelf: "flex-start",
+    marginTop: 12,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: "#B91C1C",
+  },
 });
+
+export default FraisCard;

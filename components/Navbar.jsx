@@ -18,9 +18,14 @@ function Navbar() {
 
         {/* Le bouton Tableau de bord n'apparaît que si l'utilisateur est connecté */}
         {user && (
-          <Pressable onPress={() => navigation.navigate("Dashboard")}>
-            <Text style={navbarStyles.link}>Tableau de bord</Text>
-          </Pressable>
+          <>
+            <Pressable onPress={() => navigation.navigate("Dashboard")}>
+              <Text style={navbarStyles.link}>Tableau de bord</Text>
+            </Pressable>
+            <Pressable onPress={() => navigation.navigate("FraisAdd")}>
+              <Text style={navbarStyles.link}>Proposer un frais</Text>
+            </Pressable>
+          </>
         )}
       </View>
 
