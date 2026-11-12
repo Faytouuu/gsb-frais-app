@@ -1,63 +1,65 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigation } from "@react-navigation/native";
-import { View, Text, TextInput, Pressable, Alert } from "react-native";
-import { StyleSheet } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
 import Navbar from "../components/Navbar";
-import {loginStyles as styles} from "../styles/loginStyles.js";
+import { loginStyles as styles } from "../styles/loginStyles.js";
 
 export default function LoginScreen() {
   // 1. États locaux pour les champs du formulaire
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
- 
-  //2.
-  const {loginUser} = useAuth();
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  // 3. Hook pour la redirection après connexion
-  const navigation = useNavigation();
-  
-  // 4. Déclaration de la fonction handleSubmit
+  // 2. Récupération de la fonction loginUser depuis le contexte d'authentification
+  const { loginUser } = useAuth();
+
+  // 3. Déclaration de la fonction handleSubmit pour gérer la soumission du formulaire
   const handleSubmit = async () => {
+    setSubmitting(true);
+    setError("");
     try {
       const data = await loginUser(login, password);
-      if (data.token) {
-        navigation.navigate("DashboardScreen");
-      } else {
-        Alert.alert("Identifiants incorrects");
-      }
-    } catch (error) {
-      Alert.alert("Erreur", "La connexion a échoué. Veuillez réessayer.");
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // 5. Rend le formulaire
+  // 4. Rendu du composant LoginScreen avec le formulaire de connexion
   return (
     <View style={{ flex: 1 }}>
       <Navbar />
-    <View style={styles.container}>
-      <Text style={styles.title}>Connexion</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Connexion</Text>
 
-      <View>
-        <Text>Login :</Text>
-        <TextInput style={styles.input} value={login} onChangeText={setLogin} />
+        <View>
+          <Text>Login :</Text>
+          <TextInput
+            style={styles.input}
+            value={login}
+            autoCapitalize="none"
+            onChangeText={setLogin}
+          />
+        </View>
 
-      </View>
-
-      <View>
-        <Text>Mot de passe :</Text>
-        <TextInput
+        <View>
+          <Text>Mot de passe :</Text>
+          <TextInput
             style={styles.input}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
           />
-      </View>
+        </View>
 
-      <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Se connecter</Text>
-      </Pressable>
-    </View>
+        <Pressable style={styles.button} onPress={handleSubmit} disabled={submitting}>
+          <Text style={styles.buttonText}>{submitting ? "Connexion..." : "Se connecter"}
+          </Text>
+        </Pressable>
+        {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+      </View>
     </View>
   );
 }

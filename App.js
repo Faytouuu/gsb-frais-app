@@ -22,15 +22,18 @@ function AppNavigator() {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
       {user ? (
-        <>
+        <Stack.Group navigationKey="connecte">
           <Stack.Screen name="Dashboard" component={DashboardScreen} />
           <Stack.Screen name="FraisAdd" component={FraisAddScreen} />
           <Stack.Screen name="FraisEdit" component={FraisEditScreen} />
-        </>
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Group>
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Group navigationKey="invite">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </Stack.Group>
       )}
     </Stack.Navigator>
   );
