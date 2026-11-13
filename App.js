@@ -11,8 +11,7 @@ import { ActivityIndicator } from "react-native";
 const Stack = createNativeStackNavigator();
  
 
-// Composant séparé : nécessaire car useAuth() doit être appelé
-// À L'INTÉRIEUR de <AuthProvider>, pas dans App() qui le pose.
+
 function AppNavigator() {
   const { user, sessionLoading } = useAuth();
 
