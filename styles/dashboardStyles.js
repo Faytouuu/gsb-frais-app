@@ -33,4 +33,8 @@ export const dashboardStyles = StyleSheet.create({
     color: "#2F3542",
     fontSize: 14,
   },
+  error: {
+    color: "red",
+    marginBottom: 12,
+  },
 });
